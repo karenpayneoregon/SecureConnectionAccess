@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2041
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoginLibrary_CS", "LoginLibrary_CS\LoginLibrary_CS.csproj", "{474F245C-2DA7-4A12-9F4D-96101BD9F7FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoginLibrary", "LoginLibrary_CS\LoginLibrary.csproj", "{474F245C-2DA7-4A12-9F4D-96101BD9F7FB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApplication1", "WindowsFormsApplication1\WindowsFormsApplication1.csproj", "{01D4A8BD-80FC-4EF6-AC28-780F293A933A}"
 EndProject
