@@ -24,15 +24,13 @@ namespace LoginLibrary.Classes
             _builder.DataSource = Database;
         }
 
-        private OleDbConnectionStringBuilder _builder = new OleDbConnectionStringBuilder
+        private readonly OleDbConnectionStringBuilder _builder = new OleDbConnectionStringBuilder
             { Provider = "Microsoft.ACE.OLEDB.12.0" };
 
         /// <summary>
         /// FORUM RESPONSE ONLY
         /// Add a user to the database
         /// </summary>
-        /// <param name="userName"></param>
-        /// <param name="userPassword"></param>
         public void AddUser(string userName, string userPassword)
         {
             using (var cn = new OleDbConnection { ConnectionString = _builder.ConnectionString })
@@ -57,8 +55,6 @@ namespace LoginLibrary.Classes
         /// primary key in the database table so we can find their record better then
         /// by user name.
         /// </summary>
-        /// <param name="userName"></param>
-        /// <param name="userPassword"></param>
         public void UpdatePassword(string userName, string userPassword)
         {
             using (var cn = new OleDbConnection { ConnectionString = _builder.ConnectionString })
