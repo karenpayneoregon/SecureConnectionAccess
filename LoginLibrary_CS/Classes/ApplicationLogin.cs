@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Data.OleDb;
+using LoginLibrary.Models;
 
-namespace LoginLibrary
+namespace LoginLibrary.Classes
 {
     public class ApplicationLogin
     {
@@ -77,7 +78,7 @@ namespace LoginLibrary
         }
 
         /// <summary>
-        /// Try to login a user based on proper user name and password.
+        /// Try to login a user based on proper user name and password. IsAdmin
         /// </summary>
         /// <returns></returns>
         /// <remarks>
@@ -133,6 +134,68 @@ namespace LoginLibrary
             else
             {
                 return false;
+            }
+        }
+
+        /// <summary>
+        /// Same as above but returns two extra pieces of information into a named value tuple
+        /// </summary>
+        /// <returns>success and if valid user information</returns>
+        public (bool success, User user) Login1()
+        {
+
+            if (!(string.IsNullOrWhiteSpace(UserName)) && !(string.IsNullOrWhiteSpace(UserPassword)))
+            {
+                using (var cn = new OleDbConnection { ConnectionString = _builder.ConnectionString })
+                {
+                    using (var cmd = new OleDbCommand { Connection = cn })
+                    {
+
+                        cmd.CommandText =
+                            "SELECT Identifer, UserName, UserPassword, IsAdmin FROM Users WHERE UserName = @UserName AND UserPassword = @UserPassword";
+
+                        cmd.Parameters.Add("@UserName", OleDbType.LongVarChar).Value = UserName;
+                        cmd.Parameters.Add("@UserPassword", OleDbType.LongVarChar).Value = UserPassword;
+
+                        try
+                        {
+                            cn.Open();
+                        }
+                        catch (Exception ex)
+                        {
+                            if (ex.Message.ToLower().Contains("not a valid password"))
+                            {
+                                return (false, null);
+                            }
+                            else
+                            {
+                                throw;
+                            }
+                        }
+
+                        var reader = cmd.ExecuteReader();
+                        if (reader.HasRows)
+                        {
+                            reader.Read();
+                            User user = new User
+                            {
+                                Identifer = reader.GetInt32(0),
+                                IsAdmin = reader.GetBoolean(1)
+                            };
+                            Retries = 0;
+                            return (true, user);
+                        }
+                        else
+                        {
+                            Retries += 1;
+                            return (false, null);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                return (false, null);
             }
         }
     }
