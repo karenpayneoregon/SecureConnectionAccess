@@ -1,8 +1,7 @@
 ﻿using System;
-
 using System.Data.OleDb;
 
-namespace LoginLibrary_CS
+namespace LoginLibrary
 {
     public class ApplicationLogin
     {
@@ -40,8 +39,9 @@ namespace LoginLibrary_CS
                 using (var cmd = new OleDbCommand { Connection = cn })
                 {
                     cmd.CommandText = "INSERT INTO Users (UserName, UserPassword) VALUES (@UserName,@UserPassword) ";
-                    cmd.Parameters.AddWithValue("@UserName", userName);
-                    cmd.Parameters.AddWithValue("@UserPassword", userPassword);
+
+                    cmd.Parameters.Add("@UserName", OleDbType.LongVarChar).Value = userName;
+                    cmd.Parameters.Add("@UserPassword", OleDbType.LongVarChar).Value = userPassword;
 
                     cn.Open();
 
@@ -65,8 +65,9 @@ namespace LoginLibrary_CS
                 using (var cmd = new OleDbCommand { Connection = cn })
                 {
                     cmd.CommandText = "UPDATE Users SET UserPassword = @UserPassword WHERE UserName = @UserPassword";
-                    cmd.Parameters.AddWithValue("@UserPassword", userPassword);
-                    cmd.Parameters.AddWithValue("@UserName", userName);
+
+                    cmd.Parameters.Add("@UserPassword", OleDbType.LongVarChar).Value = userPassword;
+                    cmd.Parameters.Add("@UserName", OleDbType.LongVarChar).Value = userName;
 
                     cn.Open();
 
@@ -80,8 +81,8 @@ namespace LoginLibrary_CS
         /// </summary>
         /// <returns></returns>
         /// <remarks>
-        /// You should (as done here) keep it a mystery why a login failed as a hacker
-        /// may be attempting to hack your app
+        /// * You should (as done here) keep it a mystery why a login failed as a hacker may be attempting to hack your app
+        /// * If by chance more that a true/false is needed use a named value tuple and alter the SELECT statement as needed
         /// </remarks>
         public bool Login()
         {
@@ -90,10 +91,14 @@ namespace LoginLibrary_CS
             {
                 using (var cn = new OleDbConnection { ConnectionString = _builder.ConnectionString })
                 {
-                    using (var cmd = new OleDbCommand { Connection = cn, CommandText = "SELECT UserName,UserPassword FROM Users WHERE UserName = @UserName AND UserPassword = @UserPassword" })
+                    using (var cmd = new OleDbCommand { Connection = cn })
                     {
-                        cmd.Parameters.AddWithValue("@UserName", UserName);
-                        cmd.Parameters.AddWithValue("@UserPassword", UserPassword);
+
+                        cmd.CommandText = 
+                            "SELECT UserName,UserPassword FROM Users WHERE UserName = @UserName AND UserPassword = @UserPassword";
+
+                        cmd.Parameters.Add("@UserName", OleDbType.LongVarChar).Value = UserName;
+                        cmd.Parameters.Add("@UserPassword", OleDbType.LongVarChar).Value = UserPassword;
 
                         try
                         {
@@ -107,7 +112,7 @@ namespace LoginLibrary_CS
                             }
                             else
                             {
-                                throw ex;
+                                throw;
                             }
                         }
 

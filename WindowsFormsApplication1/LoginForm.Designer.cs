@@ -37,10 +37,12 @@
             // 
             // cmdLogin
             // 
+            this.cmdLogin.Image = global::WindowsFormsApplication1.Properties.Resources.Login_16x;
+            this.cmdLogin.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.cmdLogin.Location = new System.Drawing.Point(236, 35);
             this.cmdLogin.Margin = new System.Windows.Forms.Padding(2);
             this.cmdLogin.Name = "cmdLogin";
-            this.cmdLogin.Size = new System.Drawing.Size(72, 44);
+            this.cmdLogin.Size = new System.Drawing.Size(91, 44);
             this.cmdLogin.TabIndex = 9;
             this.cmdLogin.Text = "Log in";
             this.cmdLogin.UseVisualStyleBackColor = true;
@@ -90,7 +92,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(322, 118);
+            this.ClientSize = new System.Drawing.Size(348, 118);
             this.Controls.Add(this.cmdLogin);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.txtUserName);
@@ -99,7 +101,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "LoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "LoginForm";
+            this.Text = "Login";
             this.ResumeLayout(false);
             this.PerformLayout();
 

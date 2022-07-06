@@ -47,7 +47,7 @@
             this.cmdClose.Location = new System.Drawing.Point(21, 117);
             this.cmdClose.Margin = new System.Windows.Forms.Padding(2);
             this.cmdClose.Name = "cmdClose";
-            this.cmdClose.Size = new System.Drawing.Size(171, 19);
+            this.cmdClose.Size = new System.Drawing.Size(171, 24);
             this.cmdClose.TabIndex = 3;
             this.cmdClose.Text = "Close app";
             this.cmdClose.UseVisualStyleBackColor = true;
